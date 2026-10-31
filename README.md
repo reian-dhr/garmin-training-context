@@ -44,6 +44,10 @@ cat context.md                                      # flags, weeks, recovery, la
 
 `config.toml` (optional) sets the time zone, the weekly strength-session target and the mapping from Garmin activity types to sport names. Defaults: UTC, 3 sessions, running / strength / hiking. See `config.example.toml`.
 
+## What leaves your machine
+
+The raw API answers stay in `data/`, which is gitignored. In the scheduled setup, the cloud routine fetches your Garmin data inside a claude.ai cloud session and uploads the derived datasets (load, HRV, sleep score, resting heart rate, activity list; no GPS or profile fields) to a Dashboard artifact in your claude.ai account. The API key sits in that cloud environment as a variable. Read the code before you point it at your own health data.
+
 ## Known limits
 
 - One pinned client version (`garmin-connect-personal-api-python==1.0.0`). No retry or rate-limit handling.
