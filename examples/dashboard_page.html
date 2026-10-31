@@ -1,0 +1,336 @@
+<meta name="dash-one-writer">
+<style>
+.td { display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+.td-head { display: grid; gap: var(--cds-gap-xs); }
+.td-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.td-take { margin: 0; color: var(--color-fg-muted); font-size: var(--cds-font-size-body); }
+.td-take b { color: var(--color-fg); font-weight: 600; }
+.td-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--cds-gap-md); }
+.td-kpi, .td-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); min-width: 0; }
+.td-kpi { padding: var(--cds-pad-md); display: grid; gap: var(--cds-gap-xs); align-content: start; }
+.td-lab { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.td-val { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.td-unit { font-family: var(--font-anthropic-sans); font-size: var(--cds-font-size-body); color: var(--color-fg-muted); margin-left: 0.25em; }
+.td-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.td .td-good { color: var(--color-ok); font-weight: 600; }
+.td .td-warn { color: var(--color-warn); font-weight: 600; }
+.td .td-bad { color: var(--color-bad); font-weight: 600; }
+.td-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--cds-gap-md); }
+.td-card { padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; }
+.td-wide { grid-column: 1 / -1; }
+.td-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.td-sub { margin: 0; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.td-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); min-height: 1.2em; }
+.td-legend i { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: -0.05rem; }
+.td-chart { position: relative; min-height: 220px; }
+.td-chart.td-short { min-height: 190px; }
+.td-chart svg { display: block; overflow: visible; }
+.td-chart text { font-size: 11px; fill: var(--color-fg-muted); font-family: var(--font-anthropic-sans); }
+.td-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border);
+  border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm);
+  font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; font-variant-numeric: tabular-nums; }
+.td-tip .td-tipd { color: var(--cds-text-secondary); }
+.td-tablebox { overflow-x: auto; max-height: 28rem; overflow-y: auto; }
+.td-table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-body); font-variant-numeric: tabular-nums; }
+.td-table th, .td-table td { text-align: left; padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+.td-table th { position: sticky; top: 0; background: var(--color-panel); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); }
+.td-table .td-n { text-align: right; }
+.td-table .td-sw { display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 2px; margin-right: 0.45rem; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+[data-dash-source-state=empty] { color: transparent; }
+</style>
+
+<div class="td">
+  <header class="td-head">
+    <h1 class="td-title" id="title">Training Dashboard</h1>
+    <p class="td-take">Garmin data last synced <b data-draw="num" data-source="summary" data-field="updatedLabel" data-row="0" data-fetchpriority="high">—</b> (local time). Warning flags: <b data-draw="num" data-source="summary" data-field="flagsText" data-row="0">—</b>.</p>
+  </header>
+
+  <section class="td-kpis" id="headline" aria-label="Headline figures">
+    <div class="td-kpi">
+      <div class="td-lab">Training load · last 7 days</div>
+      <div class="td-val"><span data-draw="num" data-source="summary" data-field="load7" data-row="0" data-fetchpriority="high">—</span></div>
+      <div class="td-note"><span data-draw="delta" data-source="summary" data-field="loadDeltaPct" data-row="0">—</span>% vs the 4-week average of <span data-draw="num" data-source="summary" data-field="load4wkAvg" data-row="0">—</span></div>
+    </div>
+    <div class="td-kpi">
+      <div class="td-lab">Running · last 7 days</div>
+      <div class="td-val"><span data-draw="num" data-source="summary" data-field="runKm7" data-row="0">—</span><span class="td-unit">km</span></div>
+      <div class="td-note">Runs: <span data-draw="num" data-source="summary" data-field="runs7" data-row="0">—</span></div>
+    </div>
+    <div class="td-kpi">
+      <div class="td-lab">Strength sessions · this week</div>
+      <div class="td-val"><span data-draw="num" data-source="summary" data-field="strengthWeek" data-row="0">—</span><span class="td-unit">of <span data-draw="num" data-source="summary" data-field="gymTarget" data-row="0">—</span></span></div>
+      <div class="td-note">Weekly target, Monday to Sunday</div>
+    </div>
+    <div class="td-kpi">
+      <div class="td-lab">HRV · last night</div>
+      <div class="td-val"><span data-draw="num" data-source="summary" data-field="hrv" data-row="0">—</span><span class="td-unit">ms</span></div>
+      <div class="td-note"><span data-draw="status" data-source="summary" data-field="hrvStatus" data-row="0">—</span> · balanced range <span data-draw="num" data-source="summary" data-field="hrvLow" data-row="0">—</span>–<span data-draw="num" data-source="summary" data-field="hrvHigh" data-row="0">—</span> ms</div>
+    </div>
+    <div class="td-kpi">
+      <div class="td-lab">Resting heart rate</div>
+      <div class="td-val"><span data-draw="num" data-source="summary" data-field="rhr" data-row="0">—</span><span class="td-unit">bpm</span></div>
+      <div class="td-note">28-day average <span data-draw="num" data-source="summary" data-field="rhr28" data-row="0">—</span> bpm</div>
+    </div>
+    <div class="td-kpi">
+      <div class="td-lab">Sleep score · last night</div>
+      <div class="td-val"><span data-draw="num" data-source="summary" data-field="sleepScore" data-row="0">—</span></div>
+      <div class="td-note"><span data-draw="num" data-source="summary" data-field="sleepH" data-row="0">—</span> h asleep · 7-night average <span data-draw="num" data-source="summary" data-field="sleep7" data-row="0">—</span></div>
+    </div>
+  </section>
+
+  <section class="td-grid">
+    <div class="td-card td-wide" id="load">
+      <h2>Weekly training load by sport</h2>
+      <p class="td-sub">Garmin training load summed per week, Monday to Sunday. The dashed line is the average of the 4 weeks before this one.</p>
+      <div class="td-legend" data-draw="legend" data-source="weekly"></div>
+      <div class="td-chart" data-draw="load" data-source="weekly"></div>
+    </div>
+    <div class="td-card td-wide" id="hrv-card">
+      <h2>Overnight HRV against your baseline</h2>
+      <p class="td-sub">Nightly average in ms. The shaded band is your balanced range.</p>
+      <div class="td-chart" data-draw="hrv" data-source="daily"></div>
+    </div>
+    <div class="td-card" id="rhr-card">
+      <h2>Resting heart rate</h2>
+      <p class="td-sub">Beats per minute. The dashed line is the 28-day average.</p>
+      <div class="td-chart td-short" data-draw="rhr" data-source="daily summary"></div>
+    </div>
+    <div class="td-card" id="sleep-card">
+      <h2>Sleep score</h2>
+      <p class="td-sub">Garmin overall score per night, 0 to 100.</p>
+      <div class="td-chart td-short" data-draw="sleep" data-source="daily"></div>
+    </div>
+    <div class="td-card td-wide" id="activities">
+      <h2>Recent activities</h2>
+      <p class="td-sub">Last 30 activities, newest first. Distance and pace shown for runs and hikes.</p>
+      <div class="td-tablebox">
+        <table class="td-table" data-source="activities" data-row-key="start">
+          <thead><tr>
+            <th data-field="start">Date</th><th data-field="activity">Activity</th><th data-field="sport">Sport</th>
+            <th class="td-n" data-field="minutes">Minutes</th><th class="td-n" data-field="km">km</th>
+            <th class="td-n" data-field="pace">Pace /km</th><th class="td-n" data-field="avgHR">Avg HR</th>
+            <th class="td-n" data-field="load">Load</th><th data-field="effect">Training effect</th>
+          </tr></thead>
+          <tbody data-draw="acts"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+window.TD = (() => {
+  const SPORTS = ["Running", "Strength", "Hiking", "Other"];
+  const color = (s) => dash.colors[SPORTS.indexOf(s)] || dash.colors[3];
+  const fmtDay = d3.utcFormat("%b %-d");
+  const day = (s) => new Date(String(s).slice(0, 10) + "T00:00:00Z");
+  const rows = (id) => { const g = dash.data(id); return g.status === "ok" ? g.data : null; };
+  const failed = (id) => dash.data(id).status === "error";
+
+  function failLine(el) {
+    const p = document.createElement("div");
+    p.style.cssText = "display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:inherit;color:var(--color-fg-muted);font-size:var(--cds-font-size-caption)";
+    const dot = document.createElement("span");
+    dot.style.cssText = "width:.375rem;height:.375rem;border-radius:50%;background:var(--color-bad)";
+    p.append(dot, document.createTextNode("Failed to load"));
+    el.replaceChildren(p);
+  }
+
+  function tooltip(el) {
+    const t = document.createElement("div");
+    t.className = "td-tip"; t.hidden = true; el.append(t);
+    return {
+      show(x, y, head, lines) {
+        const h = document.createElement("div"); h.className = "td-tipd"; h.textContent = head;
+        t.replaceChildren(h, ...lines.map((l) => { const d = document.createElement("div"); d.textContent = l; return d; }));
+        t.hidden = false;
+        const w = el.clientWidth, tw = t.offsetWidth;
+        t.style.left = Math.min(Math.max(x - tw / 2, 0), Math.max(w - tw, 0)) + "px";
+        t.style.top = Math.max(y - t.offsetHeight - 10, 0) + "px";
+      },
+      hide() { t.hidden = true; },
+    };
+  }
+
+  function svgFor(el, h) {
+    el.replaceChildren();
+    const w = Math.max(el.clientWidth, 260);
+    const svg = d3.select(el).append("svg").attr("width", "100%").attr("viewBox", `0 0 ${w} ${h}`).attr("role", "img");
+    return { svg, w, h };
+  }
+
+  function yGrid(svg, y, ticks, x0, x1) {
+    const g = svg.append("g");
+    for (const v of ticks) {
+      g.append("line").attr("x1", x0).attr("x2", x1).attr("y1", y(v)).attr("y2", y(v)).attr("stroke", "var(--cds-chart-grid)");
+      g.append("text").attr("x", x0 - 6).attr("y", y(v) + 4).attr("text-anchor", "end").text(d3.format(",")(v));
+    }
+  }
+
+  function timeLine(el, data, key, opts) {
+    const { svg, w, h } = svgFor(el, opts.h);
+    const m = { l: 36, r: 12, t: 12, b: 24 };
+    const pts = data.filter((r) => r[key] != null).map((r) => ({ r, d: day(r.date), v: Number(r[key]) }));
+    const extra = (opts.extra || []).filter((v) => v != null).map(Number);
+    const all = pts.map((p) => p.v).concat(extra);
+    const x = d3.scaleUtc(d3.extent(data, (r) => day(r.date)), [m.l, w - m.r]);
+    const y = d3.scaleLinear([opts.min ?? Math.floor(d3.min(all) - 2), opts.max ?? Math.ceil(d3.max(all) + 2)], [h - m.b, m.t]).nice(4);
+    yGrid(svg, y, y.ticks(4), m.l, w - m.r);
+    if (opts.band) {
+      const b = data.filter((r) => r[opts.band[0]] != null && r[opts.band[1]] != null);
+      svg.append("path").attr("fill", "var(--cds-chart-muted)").attr("fill-opacity", 0.25)
+        .attr("d", d3.area().x((r) => x(day(r.date))).y0((r) => y(Number(r[opts.band[0]]))).y1((r) => y(Number(r[opts.band[1]])))(b));
+    }
+    if (opts.ref != null) {
+      svg.append("line").attr("x1", m.l).attr("x2", w - m.r).attr("y1", y(opts.ref)).attr("y2", y(opts.ref))
+        .attr("stroke", "var(--cds-chart-reference)").attr("stroke-dasharray", "4 3");
+    }
+    if (opts.bars) {
+      const bw = Math.max((w - m.l - m.r) / data.length - 1.5, 1);
+      svg.append("g").selectAll("rect").data(pts).join("rect")
+        .attr("x", (p) => x(p.d) - bw / 2).attr("width", bw).attr("y", (p) => y(p.v)).attr("height", (p) => y(0) - y(p.v))
+        .attr("rx", 1).attr("fill", dash.colors[0]).attr("fill-opacity", (p) => (p.v < 60 ? 1 : 0.55));
+    } else {
+      svg.append("path").attr("fill", "none").attr("stroke", dash.colors[0]).attr("stroke-width", 2)
+        .attr("stroke-linejoin", "round").attr("stroke-linecap", "round")
+        .attr("d", d3.line().x((p) => x(p.d)).y((p) => y(p.v))(pts));
+      const last = pts.at(-1);
+      if (last) svg.append("circle").attr("cx", x(last.d)).attr("cy", y(last.v)).attr("r", 3.5).attr("fill", dash.colors[0]);
+    }
+    const ax = svg.append("g").attr("transform", `translate(0,${h - m.b})`)
+      .call(d3.axisBottom(x).ticks(Math.max(Math.floor(w / 110), 2)).tickFormat(fmtDay).tickSize(0).tickPadding(8));
+    ax.attr("font-size", null).attr("font-family", null).select(".domain").attr("stroke", "var(--cds-chart-axis)");
+    const tip = tooltip(el);
+    const rule = svg.append("line").attr("y1", m.t).attr("y2", h - m.b).attr("stroke", "var(--cds-chart-reference)").attr("visibility", "hidden");
+    const dot = svg.append("circle").attr("r", 4).attr("fill", dash.colors[0]).attr("visibility", "hidden");
+    const bis = d3.bisector((p) => p.d).center;
+    svg.append("rect").attr("x", m.l).attr("y", m.t).attr("width", w - m.l - m.r).attr("height", h - m.t - m.b).attr("fill", "transparent")
+      .on("pointermove", (e) => {
+        const [px] = d3.pointer(e);
+        const p = pts[bis(pts, x.invert(px))];
+        if (!p) return;
+        rule.attr("x1", x(p.d)).attr("x2", x(p.d)).attr("visibility", "visible");
+        dot.attr("cx", x(p.d)).attr("cy", y(p.v)).attr("visibility", opts.bars ? "hidden" : "visible");
+        const s = el.clientWidth / w;
+        tip.show(x(p.d) * s, y(p.v) * s, fmtDay(p.d), opts.tip(p.r));
+      })
+      .on("pointerleave", () => { tip.hide(); rule.attr("visibility", "hidden"); dot.attr("visibility", "hidden"); });
+  }
+
+  return { SPORTS, color, fmtDay, day, rows, failed, failLine, tooltip, svgFor, yGrid, timeLine };
+})();
+</script>
+
+<script>
+// Headline figures: each mark shows its dataset value as stored
+dash.draw("num", (el) => {
+  const r = TD.rows(el.dataset.source);
+  const v = r ? r[Number(el.dataset.row)]?.[el.dataset.field] : null;
+  el.textContent = v == null ? "—" : String(v);
+});
+dash.draw("delta", (el) => {
+  const r = TD.rows("summary");
+  const v = r ? r[0]?.loadDeltaPct : null;
+  el.textContent = v == null ? "—" : String(v);
+  el.className = v == null ? "" : Math.abs(v) > 30 ? "td-warn" : "td-good";
+});
+dash.draw("status", (el) => {
+  const r = TD.rows("summary");
+  const s = r ? r[0] : null;
+  el.textContent = s ? String(s.hrvStatus) : "—";
+  el.className = !s ? "" : s.hrv != null && s.hrvLow != null && s.hrv < s.hrvLow ? "td-bad" : s.hrvStatus === "balanced" ? "td-good" : "td-warn";
+});
+
+dash.draw("legend", (el) => {
+  const r = TD.rows("weekly");
+  if (!r) { el.replaceChildren(); return; }
+  el.replaceChildren(...TD.SPORTS.filter((s) => r.some((w) => Number(w[s]) > 0)).map((s) => {
+    const span = document.createElement("span"), i = document.createElement("i");
+    i.style.background = TD.color(s); span.append(i, document.createTextNode(s)); return span;
+  }));
+});
+
+dash.draw("load", (el) => {
+  if (TD.failed("weekly")) return TD.failLine(el);
+  const r = TD.rows("weekly");
+  if (!r) { el.replaceChildren(); el.classList.add("dash-skeleton"); return; }
+  el.classList.remove("dash-skeleton");
+  const { svg, w, h } = TD.svgFor(el, 240);
+  svg.attr("aria-label", "Weekly training load by sport");
+  const m = { l: 40, r: 12, t: 18, b: 26 };
+  const totals = r.map((d) => Number(d.total));
+  const prior = totals.slice(-5, -1), avg = d3.mean(prior) || 0;
+  const x = d3.scaleBand(r.map((d) => d.week), [m.l, w - m.r]).padding(0.3);
+  const y = d3.scaleLinear([0, Math.max(d3.max(totals), avg) * 1.08], [h - m.b, m.t]).nice(4);
+  TD.yGrid(svg, y, y.ticks(4), m.l, w - m.r);
+  const stack = d3.stack().keys(TD.SPORTS).value((d, k) => Number(d[k]) || 0)(r);
+  const bw = Math.min(x.bandwidth(), 32);
+  const off = (x.bandwidth() - bw) / 2;
+  svg.append("g").selectAll("g").data(stack).join("g").attr("fill", (s) => TD.color(s.key))
+    .selectAll("rect").data((s) => s).join("rect")
+    .attr("x", (d) => x(d.data.week) + off).attr("width", bw)
+    .attr("y", (d) => y(d[1])).attr("height", (d) => Math.max(y(d[0]) - y(d[1]) - (d[1] > d[0] ? 1.5 : 0), 0)).attr("rx", 2);
+  svg.append("line").attr("x1", m.l).attr("x2", w - m.r).attr("y1", y(avg)).attr("y2", y(avg))
+    .attr("stroke", "var(--cds-chart-reference)").attr("stroke-dasharray", "4 3");
+  svg.append("text").attr("x", w - m.r).attr("y", y(avg) - 6).attr("text-anchor", "end").text(`4-week average ${Math.round(avg)}`);
+  const every = Math.ceil(r.length / Math.max(Math.floor((w - m.l) / 64), 1));
+  svg.append("g").selectAll("text").data(r.filter((d, i) => i % every === 0 || i === r.length - 1)).join("text")
+    .attr("x", (d) => x(d.week) + x.bandwidth() / 2).attr("y", h - 8).attr("text-anchor", "middle").text((d) => TD.fmtDay(TD.day(d.week)));
+  const tip = TD.tooltip(el);
+  svg.append("g").selectAll("rect").data(r).join("rect")
+    .attr("x", (d) => x(d.week)).attr("width", x.bandwidth()).attr("y", m.t).attr("height", h - m.t - m.b).attr("fill", "transparent")
+    .on("pointerenter", (e, d) => {
+      const s = el.clientWidth / w;
+      tip.show((x(d.week) + x.bandwidth() / 2) * s, y(Number(d.total)) * s, `Week of ${TD.fmtDay(TD.day(d.week))}`,
+        [`Total ${d.total}`, ...TD.SPORTS.filter((k) => Number(d[k]) > 0).map((k) => `${k}: ${d[k]}`), `Running distance: ${d.runKm} km`]);
+    })
+    .on("pointerleave", () => tip.hide());
+});
+
+dash.draw("hrv", (el) => {
+  if (TD.failed("daily")) return TD.failLine(el);
+  const r = TD.rows("daily");
+  if (!r) { el.replaceChildren(); el.classList.add("dash-skeleton"); return; }
+  el.classList.remove("dash-skeleton");
+  TD.timeLine(el, r, "hrv", { h: 220, band: ["hrvLow", "hrvHigh"], extra: r.flatMap((d) => [d.hrvLow, d.hrvHigh]),
+    tip: (d) => [`HRV ${d.hrv} ms`, `Balanced range ${d.hrvLow}–${d.hrvHigh} ms`] });
+  el.querySelector("svg")?.setAttribute("aria-label", "Overnight HRV against baseline");
+});
+
+dash.draw("rhr", (el) => {
+  if (TD.failed("daily")) return TD.failLine(el);
+  const r = TD.rows("daily"), s = TD.rows("summary");
+  if (!r || !s) { el.replaceChildren(); el.classList.add("dash-skeleton"); return; }
+  el.classList.remove("dash-skeleton");
+  TD.timeLine(el, r, "rhr", { h: 190, ref: s[0].rhr28, extra: [s[0].rhr28], tip: (d) => [`${d.rhr} bpm`] });
+  el.querySelector("svg")?.setAttribute("aria-label", "Resting heart rate");
+});
+
+dash.draw("sleep", (el) => {
+  if (TD.failed("daily")) return TD.failLine(el);
+  const r = TD.rows("daily");
+  if (!r) { el.replaceChildren(); el.classList.add("dash-skeleton"); return; }
+  el.classList.remove("dash-skeleton");
+  TD.timeLine(el, r, "sleepScore", { h: 190, bars: true, min: 0, max: 100,
+    tip: (d) => [`Score ${d.sleepScore}`, d.sleepH != null ? `${d.sleepH} h asleep` : "No sleep data"] });
+  el.querySelector("svg")?.setAttribute("aria-label", "Sleep score");
+});
+
+dash.draw("acts", (tb) => {
+  const r = TD.rows("activities");
+  if (!r) { tb.replaceChildren(); return; }
+  const cell = (v, cls) => { const td = document.createElement("td"); if (cls) td.className = cls; td.textContent = v == null ? "" : String(v); return td; };
+  tb.replaceChildren(...r.map((a) => {
+    const tr = document.createElement("tr");
+    tr.dataset.key = a.start;
+    const date = cell(TD.fmtDay(TD.day(a.start)) + " · " + String(a.start).slice(11, 16));
+    const act = document.createElement("td");
+    const sw = document.createElement("span"); sw.className = "td-sw"; sw.style.background = TD.color(a.sport);
+    act.append(sw, document.createTextNode(String(a.activity)));
+    tr.append(date, act, cell(a.sport), cell(a.minutes, "td-n"), cell(a.km, "td-n"), cell(a.pace, "td-n"),
+      cell(a.avgHR, "td-n"), cell(a.load, "td-n"), cell(a.effect));
+    return tr;
+  }));
+});
+</script>
