@@ -1,4 +1,4 @@
-"""Shape raw Garmin Personal API responses (data/*.json from fetch_garmin.py) into activities, weeks and days.
+"""Shape raw Garmin Personal API responses (data/*.json from fetch.py) into activities, weeks and days.
 
 Only the fields the dashboard needs are kept - no GPS, no profile info.
 """
