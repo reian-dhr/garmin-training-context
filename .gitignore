@@ -1,0 +1,14 @@
+# secrets and token caches
+.env
+.env.*
+!.env.example
+
+# personal data and generated output
+data/
+dash/
+context.md
+config.toml
+
+# tooling
+.venv/
+__pycache__/
