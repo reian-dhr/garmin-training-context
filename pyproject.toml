@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "garmin-training-context"
+version = "0.1.0"
+description = "Turn your Garmin Personal API data into a training-context summary: weekly load, recovery and warning flags."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "garmin-connect-personal-api-python==1.0.0",  # the only release on PyPI at the time of writing
+    "requests>=2.31",
+]
+
+[project.scripts]
+garmin-context = "garmin_context.__main__:main"
+
+[tool.setuptools]
+packages = ["garmin_context"]

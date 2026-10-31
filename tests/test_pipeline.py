@@ -1,4 +1,4 @@
-"""Tests for the Garmin -> Training Dashboard pipeline, on synthetic data shaped like the Personal API's answers.
+"""Tests for the Garmin training-context pipeline, on synthetic data shaped like the Personal API's answers.
 
 Run: .venv/bin/python -m unittest discover -s tests -v
 """
@@ -13,10 +13,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-import build_context  # noqa: E402
-from build_context import DATASETS, compute, pace, streak  # noqa: E402
-from config import TZ  # noqa: E402
-from garmin_summary import summarize, week_start  # noqa: E402
+from garmin_context import fetch, metrics  # noqa: E402
+from garmin_context.config import TZ  # noqa: E402
+from garmin_context.metrics import DATASETS, compute, pace, streak  # noqa: E402
+from garmin_context.summary import summarize, week_start  # noqa: E402
 
 TODAY = date(2026, 10, 29)  # a Thursday
 NOW = datetime(2026, 10, 29, 8, 30, tzinfo=TZ)
@@ -173,7 +173,7 @@ class PipelineTest(unittest.TestCase):
 
     def test_main_writes_context_and_four_dataset_files(self):
         write_fixture(self.dir, self.steady_weeks())
-        build_context.main(data_dir=self.dir, out_dir=self.dir)
+        metrics.main(data_dir=self.dir, out_dir=self.dir)
         self.assertTrue((self.dir / "context.md").read_text().startswith("# Garmin training context"))
         for name in DATASETS:
             rows = json.loads((self.dir / "dash" / f"{name}.json").read_text())
@@ -183,10 +183,9 @@ class PipelineTest(unittest.TestCase):
 
 class FetchTest(unittest.TestCase):
     def test_windows_respect_garmin_limits(self):
-        import fetch_garmin
         start, end = date(2026, 8, 1), date(2026, 10, 29)
         for size in (28, 180):
-            chunks = list(fetch_garmin.windows(start, end, size))
+            chunks = list(fetch.windows(start, end, size))
             self.assertEqual(chunks[0][0], start)
             self.assertEqual(chunks[-1][1], end)
             self.assertTrue(all((b - a).days + 1 <= size for a, b in chunks))

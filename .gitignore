@@ -12,3 +12,6 @@ config.toml
 # tooling
 .venv/
 __pycache__/
+
+demo_output/
+*.egg-info/

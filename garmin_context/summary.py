@@ -7,7 +7,7 @@ from collections import defaultdict
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from config import ROOT, TZ
+from .config import SPORTS, TZ
 
 WEEKS = 13
 
@@ -38,13 +38,14 @@ def summarize(data_dir, on):
                 "date": a["startTimeLocal"],
                 "name": a.get("activityName"),
                 "type": a["activityType"]["typeKey"],
+                "category": SPORTS.category(a["activityType"]["typeKey"]),
                 "km": round((a.get("distance") or 0) / 1000, 2),
                 "min": round((a.get("duration") or 0) / 60, 1),
                 "avgHR": a.get("averageHR"),
                 "load": round(a.get("activityTrainingLoad") or 0, 1),
                 "label": a.get("trainingEffectLabel"),
                 "pace": (a["duration"] / 60) / (a["distance"] / 1000)
-                if a["activityType"]["typeKey"] == "running" and a.get("distance") and a.get("duration") else None,
+                if SPORTS.category(a["activityType"]["typeKey"]) == "running" and a.get("distance") and a.get("duration") else None,
             }
             for a in acts
         ),
@@ -54,8 +55,8 @@ def summarize(data_dir, on):
     weekly = defaultdict(lambda: defaultdict(float))
     for a in activities:
         w = weekly[week_start(a["date"])]
-        w[a["type"]] += a["load"]
-        if a["type"] == "running":
+        w[a["category"]] += a["load"]
+        if a["category"] == "running":
             w["_runKm"] += a["km"]
     monday = week_start(on)
     weeks = []

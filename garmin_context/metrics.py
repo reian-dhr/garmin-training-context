@@ -5,15 +5,15 @@ All numbers and flags are computed here so no reader has to eyeball raw data.
 import json
 from datetime import datetime, timedelta
 
-from config import GYM_TARGET, ROOT, SPORT_NAMES, TZ
-from garmin_summary import summarize
-
-SPORTS = (*dict.fromkeys(SPORT_NAMES.values()), "Other")
+from .config import GYM_TARGET, ROOT, TZ
+from .sports import DASHBOARD_COLUMNS, LABELS, dashboard_column
+from .summary import summarize
+DEMO_NOW = datetime(2026, 10, 29, 8, 30, tzinfo=TZ)  # the date the synthetic sample data ends on
 DATASETS = ("summary", "weekly", "daily", "activities")
 
 
-def sport(t):
-    return SPORT_NAMES.get(t, "Other")
+def sport(category):
+    return LABELS[category]
 
 
 def mean(xs):
@@ -45,13 +45,13 @@ def window(acts, start, end):
 def block(acts):
     by = {}
     for a in acts:
-        by[sport(a["type"])] = by.get(sport(a["type"]), 0) + 1
+        by[sport(a["category"])] = by.get(sport(a["category"]), 0) + 1
     return {
         "load": round(sum(a["load"] for a in acts)),
         "sessions": len(acts),
         "by_sport": by,
-        "run_km": round(sum(a["km"] for a in acts if a["type"] == "running"), 1),
-        "strength": sum(1 for a in acts if a["type"] == "strength_training"),
+        "run_km": round(sum(a["km"] for a in acts if a["category"] == "running"), 1),
+        "strength": sum(1 for a in acts if a["category"] == "strength"),
     }
 
 
@@ -109,7 +109,7 @@ def compute(s, now):
         return f"load {b['load']} · {b['sessions']} sessions ({sports}) · run {b['run_km']} km"
 
     def dist(a):
-        return f"{a['km']:.1f} km" if a["km"] and a["type"] in ("running", "hiking") else "–"
+        return f"{a['km']:.1f} km" if a["km"] and a["category"] in ("running", "hiking_walking") else "–"
 
     lines = [
         "# Garmin training context",
@@ -118,7 +118,7 @@ def compute(s, now):
         f"- Latest activity: {last_act['date'][:16] if last_act else '–'} · "
         f"latest sleep: {sleep_day.get('date', '–')} · latest HRV: {hrv_day.get('date', '–')}",
         f"- Today ({t:%a %d %b}): "
-        + ("; ".join(f"{sport(a['type'])} {a['min']:.0f} min, load {a['load']:.0f}" for a in today_acts)
+        + ("; ".join(f"{sport(a['category'])} {a['min']:.0f} min, load {a['load']:.0f}" for a in today_acts)
            if today_acts else "no activity synced yet"),
         "",
         "## Flags",
@@ -144,7 +144,7 @@ def compute(s, now):
         "| Date | Sport | Name | Time | Distance | Pace | Avg HR | Load | Effect |",
         "|---|---|---|---|---|---|---|---|---|",
         *[
-            f"| {a['date'][:16]} | {sport(a['type'])} | {a['name'] or ''} | {a['min']:.0f} min | {dist(a)} | "
+            f"| {a['date'][:16]} | {sport(a['category'])} | {a['name'] or ''} | {a['min']:.0f} min | {dist(a)} | "
             f"{pace(a['pace']) + '/km' if a['pace'] else '–'} | {fmt(a['avgHR'])} | {a['load']:.0f} | "
             f"{(a['label'] or '').lower().replace('_', ' ')} |"
             for a in reversed(acts[-5:])
@@ -158,7 +158,7 @@ def compute(s, now):
             "updated": now.isoformat(timespec="minutes"), "updatedLabel": f"{now:%a %d %b, %H:%M}",
             "load7": last7["load"], "load4wkAvg": load4,
             "loadDeltaPct": round((last7["load"] / load4 - 1) * 100) if load4 else None,
-            "runKm7": last7["run_km"], "runs7": last7["by_sport"].get("Running", 0),
+            "runKm7": last7["run_km"], "runs7": last7["by_sport"].get(LABELS["running"], 0),
             "strengthWeek": this_week["strength"], "gymTarget": GYM_TARGET,
             "hrv": hrv_day.get("hrv"), "hrvLow": hrv_day.get("hrvLow"), "hrvHigh": hrv_day.get("hrvHigh"),
             "hrvStatus": (hrv_day.get("hrvStatus") or "").lower().replace("_", " "),
@@ -169,7 +169,7 @@ def compute(s, now):
             "contextMd": "\n".join(lines),
         }],
         "weekly": [
-            {"week": w["week"], **{n: sum(v for k, v in w["load"].items() if sport(k) == n) for n in SPORTS},
+            {"week": w["week"], **{n: sum(v for k, v in w["load"].items() if dashboard_column(k) == n) for n in DASHBOARD_COLUMNS},
              "total": sum(w["load"].values()), "runKm": w["runKm"]}
             for w in s["weeks"]
         ],
@@ -177,9 +177,9 @@ def compute(s, now):
                    "rhr": d["rhr"], "sleepScore": d["sleepScore"], "sleepH": r1(d["sleepH"])}
                   for d in days[-90:]],
         "activities": [
-            {"start": a["date"][:16], "activity": a["name"] or sport(a["type"]), "sport": sport(a["type"]),
+            {"start": a["date"][:16], "activity": a["name"] or sport(a["category"]), "sport": dashboard_column(a["category"]),
              "minutes": round(a["min"]),
-             "km": r1(a["km"]) if a["km"] and a["type"] in ("running", "hiking") else None,
+             "km": r1(a["km"]) if a["km"] and a["category"] in ("running", "hiking_walking") else None,
              "pace": pace(a["pace"]),
              "avgHR": round(a["avgHR"]) if a["avgHR"] else None, "load": round(a["load"]),
              "effect": (a["label"] or "").lower().replace("_", " ")}
@@ -189,8 +189,8 @@ def compute(s, now):
     return lines, flags, datasets
 
 
-def main(data_dir=ROOT / "data", out_dir=ROOT):
-    now = datetime.now(TZ)
+def main(data_dir=ROOT / "data", out_dir=ROOT, now=None):
+    now = now or datetime.now(TZ)
     lines, flags, datasets = compute(summarize(data_dir, now.date()), now)
     (out_dir / "context.md").write_text("\n".join(lines) + "\n")
     (out_dir / "dash").mkdir(exist_ok=True)

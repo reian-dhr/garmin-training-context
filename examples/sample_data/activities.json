@@ -1,0 +1,854 @@
+[
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-08-01 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-02 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-08-03 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-05 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-08-07 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-08-08 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-09 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-08-10 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Five-a-side",
+  "startTimeLocal": "2026-08-10 07:30:00",
+  "activityType": {
+   "typeKey": "soccer"
+  },
+  "distance": 0,
+  "duration": 3600.0,
+  "averageHR": 142,
+  "activityTrainingLoad": 70,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-12 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-08-14 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-08-15 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-16 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-08-17 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-19 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-08-21 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-08-22 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-23 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-08-24 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Pool swim",
+  "startTimeLocal": "2026-08-24 07:30:00",
+  "activityType": {
+   "typeKey": "lap_swimming"
+  },
+  "distance": 1500.0,
+  "duration": 2400.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 40,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-26 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-08-28 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-08-29 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-08-30 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-08-31 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-02 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-09-04 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-09-05 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-06 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-09-07 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Padel",
+  "startTimeLocal": "2026-09-07 07:30:00",
+  "activityType": {
+   "typeKey": "paddelball"
+  },
+  "distance": 0,
+  "duration": 4500.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 65,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-09 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-09-11 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-09-12 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-13 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-09-14 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-16 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-09-18 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-09-19 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-20 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-09-21 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Hike",
+  "startTimeLocal": "2026-09-21 07:30:00",
+  "activityType": {
+   "typeKey": "hiking"
+  },
+  "distance": 14000.0,
+  "duration": 14400.0,
+  "averageHR": 150,
+  "activityTrainingLoad": 150,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-23 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-09-25 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-09-26 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-27 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-09-28 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-09-30 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-10-02 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-10-03 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-04 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Walk",
+  "startTimeLocal": "2026-10-04 07:30:00",
+  "activityType": {
+   "typeKey": "walking"
+  },
+  "distance": 5000.0,
+  "duration": 4200.0,
+  "averageHR": 136,
+  "activityTrainingLoad": 15,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-10-05 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-07 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-10-09 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-10-10 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-11 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-10-12 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-14 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-10-16 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Long run",
+  "startTimeLocal": "2026-10-17 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 12000.0,
+  "duration": 4500.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 95,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-18 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Trail run",
+  "startTimeLocal": "2026-10-18 07:30:00",
+  "activityType": {
+   "typeKey": "trail_running"
+  },
+  "distance": 10000.0,
+  "duration": 4200.0,
+  "averageHR": 144,
+  "activityTrainingLoad": 90,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-10-19 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-21 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Ride",
+  "startTimeLocal": "2026-10-23 07:30:00",
+  "activityType": {
+   "typeKey": "cycling"
+  },
+  "distance": 22000.0,
+  "duration": 3600.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 50,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Hard intervals",
+  "startTimeLocal": "2026-10-24 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 8000.0,
+  "duration": 3000.0,
+  "averageHR": 149,
+  "activityTrainingLoad": 140,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-25 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3000.0,
+  "averageHR": 140,
+  "activityTrainingLoad": 55,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Easy run",
+  "startTimeLocal": "2026-10-26 07:30:00",
+  "activityType": {
+   "typeKey": "running"
+  },
+  "distance": 6000.0,
+  "duration": 2160.0,
+  "averageHR": 139,
+  "activityTrainingLoad": 45,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Hill hike",
+  "startTimeLocal": "2026-10-27 07:30:00",
+  "activityType": {
+   "typeKey": "hiking"
+  },
+  "distance": 12000.0,
+  "duration": 12000.0,
+  "averageHR": 152,
+  "activityTrainingLoad": 170,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ },
+ {
+  "activityName": "Strength",
+  "startTimeLocal": "2026-10-28 07:30:00",
+  "activityType": {
+   "typeKey": "strength_training"
+  },
+  "distance": 0,
+  "duration": 3300.0,
+  "averageHR": 141,
+  "activityTrainingLoad": 60,
+  "trainingEffectLabel": "AEROBIC_BASE"
+ }
+]

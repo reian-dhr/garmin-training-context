@@ -1,15 +1,14 @@
-# Copy to config.toml to override. Without it, the defaults in config.py apply.
+# Copy to config.toml to override. Without it, the defaults apply (UTC, 3 sessions, built-in sport mapping).
 
-# IANA time zone: sets the "today" and week boundaries (weeks run Monday to Sunday).
+# IANA time zone: sets "today" and the Monday-to-Sunday week boundaries.
 timezone = "UTC"
 
 # Strength sessions per week you aim for. Shown against the actual count.
 gym_target = 3
 
-# Garmin activity type key -> sport name used in the weekly load table and the summary.
-# Activity types not listed here are grouped as "Other". The example dashboard page
-# expects the names Running, Strength, Hiking and Other.
+# Optional. Map a Garmin activity type to a category, or add a type the defaults don't know.
+# Categories: running, cycling, swimming, strength, hiking_walking, winter_sports, team_sports,
+# racket_sports, other. See docs/sports.md for the built-in mapping.
 [sports]
-running = "Running"
-strength_training = "Strength"
-hiking = "Hiking"
+# yoga = "strength"
+# mountain_biking = "cycling"
