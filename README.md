@@ -22,8 +22,12 @@ flowchart LR
 
 ## See it without a key
 
+Needs Python 3.12 or newer.
+
 ```bash
-python -m pip install -e . && python -m garmin_context demo
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python -e .
+.venv/bin/python -m garmin_context demo
 ```
 
 This builds from synthetic data and writes `demo_output/`. A finished copy is in [`examples/sample_output/`](examples/sample_output/), including a load-spike flag and an HRV flag. Nothing there is real data.
@@ -41,7 +45,7 @@ cp config.example.toml config.toml    # optional
 .venv/bin/python -m garmin_context build
 ```
 
-Check it worked: `fetch` prints a record count per dataset, `build` prints the flag count, and `context.md` holds the summary. Tests need no key or network:
+Check it worked: `fetch` prints a record count per dataset, `build` prints the flag count, and `context.md` holds the summary. Tests need no key or network (the retry tests log "retrying" lines; that is expected):
 
 ```bash
 .venv/bin/python -m unittest discover -s tests
