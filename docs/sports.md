@@ -1,43 +1,57 @@
 # Sports mapping
 
 Garmin labels every activity with a type key (`activityType.typeKey` in the API answer, next to `typeId` and
-`parentTypeId`). The pipeline maps each key to one of nine categories, and the metrics work on categories.
+`parentTypeId`). The pipeline maps each key to one of 16 categories, and the metrics work on categories.
 
-| Category | Type keys mapped by default |
+Categories: `running`, `cycling`, `swimming`, `strength`, `cardio_gym`, `mind_body` (yoga, pilates, mobility,
+meditation), `hiking_walking`, `climbing`, `winter_sports`, `water_sports`, `diving`, `team_sports`,
+`racket_sports`, `golf`, `motorsports`, `other`.
+
+## The profile database
+
+[`garmin_context/data/activity_profiles.csv`](../garmin_context/data/activity_profiles.csv) has one row per activity
+profile in Garmin's support article [Activity Profile Options on Garmin Wearables](https://support.garmin.com/en-GB/?faq=g9VOolzNBr08b7mfclmxt7)
+(133 profiles, read on 1 Nov 2026).
+
+| Column | Meaning |
 |---|---|
-| `running` | `running`, `trail_running`, `treadmill_running` |
-| `cycling` | `cycling`, `indoor_cycling` |
-| `swimming` | `lap_swimming`, `open_water_swimming` |
-| `strength` | `strength_training` |
-| `hiking_walking` | `hiking`, `walking` |
-| `winter_sports` | `resort_skiing` |
-| `team_sports` | `soccer` |
-| `racket_sports` | `paddelball` (Garmin's spelling of padel) |
-| `other` | everything else, including `yoga` and `pilates` |
+| `profile` | The profile name as Garmin's article spells it (including its typo "Pickelball"). |
+| `garmin_group` | The group(s) the article says the profile is listed under, for example `Team Sports`. Blank when the article gives none. |
+| `category` | The category this repo uses. I assigned it from Garmin's group and the profile name. |
+| `type_key` | The API `typeKey`, only when it has been seen in real data. Blank otherwise. |
+| `key_source` | Where the `type_key` came from. `author-data` means it appeared in the author's own activities. |
 
-Where the keys come from: they are the 15 distinct type keys in three years of the author's own Garmin
-activities (394 runs, 40 strength sessions, 21 hikes, and a handful of the rest). Only keys seen there are in the
-default table. Garmin has many more types; the pipeline does not guess their keys.
+The article lists display names, not API type keys, so most rows have no `type_key` yet. Fifteen are filled in
+(`running`, `trail_running`, `treadmill_running`, `cycling`, `indoor_cycling`, `lap_swimming`, `open_water_swimming`,
+`strength_training`, `hiking`, `walking`, `resort_skiing`, `soccer`, `paddelball`, `yoga`, `pilates`), taken from
+three years of the author's activities. Which profile produced which key is paired by name.
 
-## Unknown types and overrides
+## How a type key is matched
 
-A type that is not in the table counts as `other` and the run prints one warning per type:
+1. Your `[sports]` overrides in `config.toml`.
+2. A row whose `type_key` equals the key (verified).
+3. A row without a `type_key` whose profile name in snake_case equals the key, for example `badminton` or
+   `ice_hockey`. This is a name match, not a verified key: Garmin's real key may be spelled differently, in which
+   case the type falls through to the next step.
+4. `other`, with one warning per run: `Unknown activity type 'x' counted as 'other'`.
 
-```
-Unknown activity type 'kite_surfing' counted as 'other'. Add it under [sports] in config.toml.
-```
+## Filling in and updating the database
 
-Add it, or move a known type, in `config.toml`:
+Run `python -m garmin_context types` after `fetch`. It lists every type key in `data/activities.json` with its count,
+its category and how it was matched (`verified`, `name`, `override` or `UNKNOWN`). For a key that is `name` or
+`UNKNOWN`:
+
+- Find its row in the CSV (or add one) and put the key in `type_key`, with `key_source` set to where you saw it.
+- Fix `category` if the assignment is wrong for you.
+- Keep one row per profile and one row per `type_key`; the tests check both.
+
+For a one-off change on your machine only, use `[sports]` in `config.toml` instead:
 
 ```toml
 [sports]
-kite_surfing = "other"
+kite_surfing = "water_sports"
 yoga = "strength"
-mountain_biking = "cycling"
 ```
-
-Your entries win over the defaults. A value that is not one of the nine categories stops the run with a message
-listing the valid ones.
 
 ## How categories feed the metrics
 
@@ -45,8 +59,7 @@ listing the valid ones.
   every category is treated the same way. No sport-specific weighting is applied.
 - **Run km** counts distance from `running` activities only.
 - **Strength sessions** count `strength` activities against `gym_target`.
-- **Distance** is shown for `running` and `hiking_walking`; **pace** for `running` only. Cycling and swimming
-  distance is not shown yet.
+- **Distance** is shown for `running` and `hiking_walking`; **pace** for `running` only.
 - The example dashboard page draws four series (Running, Strength, Hiking, Other), so in the `weekly` and
   `activities` datasets `hiking_walking` is called Hiking and every other category is Other. `context.md` uses
   the full category names.

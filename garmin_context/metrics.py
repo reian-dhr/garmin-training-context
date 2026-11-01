@@ -5,7 +5,7 @@ All numbers and flags are computed here so no reader has to eyeball raw data.
 import json
 from datetime import datetime, timedelta
 
-from .config import GYM_TARGET, ROOT, TZ
+from .config import GYM_TARGET, ROOT, SPORTS, TZ
 from .sports import DASHBOARD_COLUMNS, LABELS, dashboard_column
 from .summary import summarize
 DEMO_NOW = datetime(2026, 10, 29, 8, 30, tzinfo=TZ)  # the date the synthetic sample data ends on
@@ -187,6 +187,15 @@ def compute(s, now):
         ],
     }
     return lines, flags, datasets
+
+
+def print_types(data_dir=ROOT / "data"):
+    """List the activity types in data/activities.json with their category and how each was matched."""
+    from collections import Counter
+    counts = Counter(a["activityType"]["typeKey"] for a in json.loads((data_dir / "activities.json").read_text()))
+    for type_key, n in counts.most_common():
+        cat, how = SPORTS.match(type_key)
+        print(f"{n:5d}  {type_key:28s} {cat:15s} {how or 'UNKNOWN (add under [sports])'}")
 
 
 def main(data_dir=ROOT / "data", out_dir=ROOT, now=None):

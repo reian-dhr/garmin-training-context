@@ -7,8 +7,9 @@ timezone = "UTC"
 gym_target = 3
 
 # Optional. Map a Garmin activity type to a category, or add a type the defaults don't know.
-# Categories: running, cycling, swimming, strength, hiking_walking, winter_sports, team_sports,
-# racket_sports, other. See docs/sports.md for the built-in mapping.
+# Categories: running, cycling, swimming, strength, cardio_gym, mind_body, hiking_walking, climbing,
+# winter_sports, water_sports, diving, team_sports, racket_sports, golf, motorsports, other.
+# See docs/sports.md for the built-in profile database.
 [sports]
 # yoga = "strength"
 # mountain_biking = "cycling"

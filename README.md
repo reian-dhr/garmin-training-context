@@ -69,7 +69,7 @@ Optional `config.toml` in the folder you run from. Without it the defaults apply
 |---|---|---|
 | `timezone` | `UTC` | IANA name, for example `Europe/Paris`. Sets "today" and the Monday-to-Sunday weeks. |
 | `gym_target` | `3` | Strength sessions per week, shown against the actual count. |
-| `[sports]` | built-in table | Garmin activity type to category overrides. Unknown types count as `other` with one warning. See [docs/sports.md](docs/sports.md). |
+| `[sports]` | profile database | Garmin activity type to category overrides on top of the built-in database of Garmin's 133 activity profiles. Unknown types count as `other` with one warning. See [docs/sports.md](docs/sports.md). |
 
 The key comes from `GARMIN_PERSONAL_API_KEY`, as an environment variable or in `.env.local`.
 
@@ -90,7 +90,7 @@ The core above runs anywhere. The way I use it is a scheduled claude.ai cloud ro
 | `Could not get an access token` | Same causes; the key is checked when it is exchanged for a token. |
 | `Garmin API still failing after 4 attempts` | Network errors and HTTP 429, 500, 502, 503, 504 are retried with 2, 4 and 8 second waits. Try again later. |
 | `Warning: no activities in the last 90 days` | Sync your watch to Garmin Connect, then rerun. |
-| `Unknown activity type ... counted as 'other'` | Add the type under `[sports]` in `config.toml`. |
+| `Unknown activity type ... counted as 'other'` | Run `python -m garmin_context types` to see how each type is mapped, then add the type under `[sports]` in `config.toml` or to the CSV (see [docs/sports.md](docs/sports.md)). |
 | `config.toml: timezone ... is not an IANA time zone name` | Use a name like `Europe/Paris`. |
 
 ## FAQ
@@ -105,6 +105,7 @@ The core above runs anywhere. The way I use it is a scheduled claude.ai cloud ro
 
 - The Garmin client is pinned to 1.0.0, the only release on PyPI when I checked.
 - Retry covers network errors and temporary server errors. Garmin's rate limits are not documented here and Retry-After is not read, because the client does not expose response headers.
+- Most profiles in the sports database have no verified API type key yet; they match by name only. Contributions of verified keys are welcome (see [docs/sports.md](docs/sports.md)).
 - Distance is shown for running and hiking and walking only.
 - The scheduled part depends on research-preview claude.ai features.
 

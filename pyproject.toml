@@ -19,3 +19,6 @@ garmin-context = "garmin_context.__main__:main"
 
 [tool.setuptools]
 packages = ["garmin_context"]
+
+[tool.setuptools.package-data]
+garmin_context = ["data/*.csv"]

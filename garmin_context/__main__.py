@@ -7,9 +7,10 @@ from pathlib import Path
 
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="garmin_context", description=__doc__)
-    parser.add_argument("command", choices=("fetch", "build", "demo"),
+    parser.add_argument("command", choices=("fetch", "build", "demo", "types"),
                         help="fetch: download your data; build: write context.md and dash/*.json; "
-                             "demo: build from the synthetic sample data, no key needed")
+                             "demo: build from the synthetic sample data, no key needed; "
+                             "types: list the activity types in data/activities.json and how each is mapped")
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.WARNING, format="%(message)s", stream=sys.stderr)
 
@@ -17,6 +18,8 @@ def main(argv=None):
     if args.command == "fetch":
         from . import fetch
         fetch.main()
+    elif args.command == "types":
+        metrics.print_types()
     elif args.command == "build":
         metrics.main()
     else:

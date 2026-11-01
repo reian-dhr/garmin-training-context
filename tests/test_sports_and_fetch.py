@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from garmin_context import fetch, metrics  # noqa: E402
-from garmin_context.sports import CATEGORIES, DEFAULT_TYPES, Sports  # noqa: E402
+from garmin_context.sports import CATEGORIES, Sports, load_profiles  # noqa: E402
 
 
 class SportsTest(unittest.TestCase):
@@ -37,8 +37,26 @@ class SportsTest(unittest.TestCase):
         with self.assertRaises(SystemExit):
             Sports({"yoga": "mindfulness"})
 
-    def test_defaults_only_use_real_categories(self):
-        self.assertTrue(set(DEFAULT_TYPES.values()) <= set(CATEGORIES))
+    def test_profile_database_is_consistent(self):
+        rows = load_profiles()
+        self.assertGreater(len(rows), 100)
+        self.assertTrue(all(r["category"] in CATEGORIES for r in rows))
+        keys = [r["type_key"] for r in rows if r["type_key"]]
+        self.assertEqual(len(keys), len(set(keys)), "a type_key is listed twice")
+        names = [r["profile"] for r in rows]
+        self.assertEqual(len(names), len(set(names)), "a profile is listed twice")
+        self.assertTrue(all(r["key_source"] for r in rows if r["type_key"]), "every type_key needs a key_source")
+
+    def test_verified_key_beats_name_match_and_name_match_works(self):
+        s = Sports()
+        self.assertEqual(s.match("trail_running"), ("running", "verified"))
+        self.assertEqual(s.match("badminton"), ("racket_sports", "name"))
+        self.assertEqual(s.match("ice_hockey"), ("team_sports", "name"))
+        self.assertEqual(s.match("yoga"), ("mind_body", "verified"))
+        self.assertEqual(s.match("kite_surfing"), ("other", None))
+
+    def test_override_beats_database(self):
+        self.assertEqual(Sports({"badminton": "cardio_gym"}).match("badminton"), ("cardio_gym", "override"))
 
 
 class RetryTest(unittest.TestCase):
