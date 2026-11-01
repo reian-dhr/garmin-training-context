@@ -3,12 +3,12 @@
 All numbers and flags are computed here so no reader has to eyeball raw data.
 """
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
-from .config import GYM_TARGET, ROOT, SPORTS, TZ
+from .config import GYM_TARGET, ROOT, SPORTS
 from .sports import DASHBOARD_COLUMNS, LABELS, dashboard_column
-from .summary import summarize
-DEMO_NOW = datetime(2026, 10, 29, 8, 30, tzinfo=TZ)  # the date the synthetic sample data ends on
+from .summary import resolve_tz, summarize, tz_label
+DEMO_NOW = datetime(2026, 10, 29, 8, 30, tzinfo=timezone.utc)  # the date the synthetic sample data ends on
 DATASETS = ("summary", "weekly", "daily", "activities")
 
 
@@ -69,7 +69,7 @@ def streak(days, pred):
 
 
 def compute(s, now):
-    """(context.md lines, flags, {dataset id: rows}) from summarize()'s output, as of `now` ({TZ.key})."""
+    """(context.md lines, flags, {dataset id: rows}) from summarize()'s output, as of `now`."""
     acts, days = s["activities"], s["days"]
     t = now.date()
     iso = lambda d: d.isoformat()
@@ -114,7 +114,7 @@ def compute(s, now):
     lines = [
         "# Garmin training context",
         "",
-        f"- Updated: {now:%a %d %b %Y %H:%M} ({TZ.key})",
+        f"- Updated: {now:%a %d %b %Y %H:%M} ({tz_label(now.tzinfo)})",
         f"- Latest activity: {last_act['date'][:16] if last_act else '–'} · "
         f"latest sleep: {sleep_day.get('date', '–')} · latest HRV: {hrv_day.get('date', '–')}",
         f"- Today ({t:%a %d %b}): "
@@ -192,14 +192,16 @@ def compute(s, now):
 def print_types(data_dir=ROOT / "data"):
     """List the activity types in data/activities.json with their category and how each was matched."""
     from collections import Counter
-    counts = Counter(a["activityType"]["typeKey"] for a in json.loads((data_dir / "activities.json").read_text()))
+    acts = json.loads((data_dir / "activities.json").read_text())
+    counts = Counter(a["activityType"]["typeKey"] for a in acts)
+    parents = {a["activityType"]["typeKey"]: a["activityType"].get("parentTypeId") for a in acts}
     for type_key, n in counts.most_common():
-        cat, how = SPORTS.match(type_key)
+        cat, how = SPORTS.match(type_key, parents[type_key])
         print(f"{n:5d}  {type_key:28s} {cat:15s} {how or 'UNKNOWN (add under [sports])'}")
 
 
 def main(data_dir=ROOT / "data", out_dir=ROOT, now=None):
-    now = now or datetime.now(TZ)
+    now = now or datetime.now(resolve_tz(data_dir))
     lines, flags, datasets = compute(summarize(data_dir, now.date()), now)
     (out_dir / "context.md").write_text("\n".join(lines) + "\n")
     (out_dir / "dash").mkdir(exist_ok=True)

@@ -9,41 +9,47 @@ meditation), `hiking_walking`, `climbing`, `winter_sports`, `water_sports`, `div
 
 ## The profile database
 
-[`garmin_context/data/activity_profiles.csv`](../garmin_context/data/activity_profiles.csv) has one row per activity
-profile in Garmin's support article [Activity Profile Options on Garmin Wearables](https://support.garmin.com/en-GB/?faq=g9VOolzNBr08b7mfclmxt7)
-(133 profiles, read on 1 Nov 2026).
+[`garmin_context/data/activity_profiles.csv`](../garmin_context/data/activity_profiles.csv) has 180 rows. It combines
+three sources:
+
+- **Garmin's article** [Activity Profile Options on Garmin Wearables](https://support.garmin.com/en-GB/?faq=g9VOolzNBr08b7mfclmxt7)
+  (read on 1 Nov 2026): 133 profile names and the groups Garmin lists them under. It gives display names, not API keys.
+- **GarminDB's `Sport` enum** ([`garmin_connect_enums.py`](https://github.com/tcgoetz/GarminDB/blob/master/garmindb/garmin_connect_enums.py),
+  community code, not official Garmin documentation): API type keys with their numeric ids. 131 keys come from here.
+- **The author's own activities** (three years): 15 keys seen in real payloads, with their `typeId`.
 
 | Column | Meaning |
 |---|---|
-| `profile` | The profile name as Garmin's article spells it (including its typo "Pickelball"). |
-| `garmin_group` | The group(s) the article says the profile is listed under, for example `Team Sports`. Blank when the article gives none. |
-| `category` | The category this repo uses. I assigned it from Garmin's group and the profile name. |
-| `type_key` | The API `typeKey`, only when it has been seen in real data. Blank otherwise. |
-| `key_source` | Where the `type_key` came from. `author-data` means it appeared in the author's own activities. |
+| `profile` | The profile name as Garmin's article spells it (including its typo "Pickelball"). Blank for keys the article has no profile for. |
+| `garmin_group` | The group(s) the article lists the profile under. Blank when it gives none. |
+| `category` | The category this repo uses. I assigned it from Garmin's group and the name. |
+| `type_key` | The API `typeKey`. Blank where no key is known. |
+| `type_id` | Garmin's numeric id for the type, when known. |
+| `key_source` | `author-data` (seen in the author's activities) or `garmindb-enum` (listed there). |
 
-The article lists display names, not API type keys, so most rows have no `type_key` yet. Fifteen are filled in
-(`running`, `trail_running`, `treadmill_running`, `cycling`, `indoor_cycling`, `lap_swimming`, `open_water_swimming`,
-`strength_training`, `hiking`, `walking`, `resort_skiing`, `soccer`, `paddelball`, `yoga`, `pilates`), taken from
-three years of the author's activities. Which profile produced which key is paired by name.
+How much to trust the keys: for 13 of the author's 15 keys, the name and id also match GarminDB's list, which
+supports the list. Two differ: the author's `yoga` has id 163, which GarminDB calls `yoga_gym`, and `pilates` (160)
+is missing there. The author's data wins for those. A `garmindb-enum` key has not been seen in the author's data,
+and pairing a key with an article profile (for example `mountain_biking` with "MTB") is by name.
 
 ## How a type key is matched
 
 1. Your `[sports]` overrides in `config.toml`.
-2. A row whose `type_key` equals the key (verified).
-3. A row without a `type_key` whose profile name in snake_case equals the key, for example `badminton` or
-   `ice_hockey`. This is a name match, not a verified key: Garmin's real key may be spelled differently, in which
-   case the type falls through to the next step.
-4. `other`, with one warning per run: `Unknown activity type 'x' counted as 'other'`.
+2. A row whose `type_key` equals the key (`key`).
+3. A profile row without a `type_key` whose name in snake_case equals the key (`name`), for example
+   `tempo_training`.
+4. The activity's `parentTypeId`, for six parent groups seen in real payloads: 1 running, 2 cycling, 26 swimming,
+   165 winter sports, 206 team sports, 219 racket sports (`parent`). This catches new sub-types of those groups.
+5. `other`, with one warning per run: `Unknown activity type 'x' counted as 'other'`.
 
 ## Filling in and updating the database
 
 Run `python -m garmin_context types` after `fetch`. It lists every type key in `data/activities.json` with its count,
-its category and how it was matched (`verified`, `name`, `override` or `UNKNOWN`). For a key that is `name` or
-`UNKNOWN`:
+its category and how it was matched (`key`, `name`, `parent`, `override` or `UNKNOWN`). For a key that is `UNKNOWN` (or only matched by `name` or `parent`):
 
-- Find its row in the CSV (or add one) and put the key in `type_key`, with `key_source` set to where you saw it.
+- Find its row in the CSV (or add one) and put the key in `type_key`, its id in `type_id`, and set `key_source` to where you saw it.
 - Fix `category` if the assignment is wrong for you.
-- Keep one row per profile and one row per `type_key`; the tests check both.
+- Keep one row per profile and one row per `type_key`; a row needs a profile or a type key. The tests check this.
 
 For a one-off change on your machine only, use `[sports]` in `config.toml` instead:
 

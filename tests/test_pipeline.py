@@ -7,19 +7,18 @@ import re
 import sys
 import tempfile
 import unittest
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from garmin_context import fetch, metrics  # noqa: E402
-from garmin_context.config import TZ  # noqa: E402
 from garmin_context.metrics import DATASETS, compute, pace, streak  # noqa: E402
 from garmin_context.summary import summarize, week_start  # noqa: E402
 
 TODAY = date(2026, 10, 29)  # a Thursday
-NOW = datetime(2026, 10, 29, 8, 30, tzinfo=TZ)
+NOW = datetime(2026, 10, 29, 8, 30, tzinfo=timezone.utc)
 
 
 def activity(day, kind="running", km=5.0, minutes=30, load=40, hr=140, label="AEROBIC_BASE", name=None):

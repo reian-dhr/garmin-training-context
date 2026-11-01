@@ -1,8 +1,9 @@
 """Map Garmin activity types (activityType.typeKey) to the categories the metrics use.
 
 The mapping comes from data/activity_profiles.csv, one row per activity profile in Garmin's list of profile options.
-Lookup order for a type key: your [sports] overrides in config.toml, then rows with a verified type_key, then rows
-whose profile name, written in snake_case, equals the key. Anything else is 'other', with one warning per run.
+Lookup order for a type key: your [sports] overrides in config.toml, then rows with a type_key, then rows
+whose profile name, written in snake_case, equals the key, then the activity's parentTypeId for a few parent
+groups seen in real data. Anything else is 'other', with one warning per run.
 """
 import csv
 import logging
@@ -42,6 +43,11 @@ def dashboard_column(category):
     return _DASHBOARD.get(category, "Other")
 
 
+# parentTypeId values seen in the author's own activity payloads, with the group names from GarminDB's enum.
+PARENT_CATEGORY = {1: "running", 2: "cycling", 26: "swimming", 165: "winter_sports", 206: "team_sports",
+                   219: "racket_sports"}
+
+
 def snake(name):
     return re.sub(r"[^a-z0-9]+", "_", name.lower()).strip("_")
 
@@ -56,10 +62,10 @@ def load_profiles(path=PROFILES_CSV):
 
 
 def _tables(rows):
-    """(verified type_key -> category, snake_case profile name -> category) from the profile rows."""
-    verified = {r["type_key"]: r["category"] for r in rows if r["type_key"]}
-    by_name = {snake(r["profile"]): r["category"] for r in rows if not r["type_key"]}
-    return verified, by_name
+    """(type_key -> category, snake_case profile name -> category) from the profile rows."""
+    by_key = {r["type_key"]: r["category"] for r in rows if r["type_key"]}
+    by_name = {snake(r["profile"]): r["category"] for r in rows if r["profile"] and not r["type_key"]}
+    return by_key, by_name
 
 
 class Sports:
@@ -71,18 +77,20 @@ class Sports:
                 raise SystemExit(f"config.toml: [sports] {type_key} = {cat!r} is not a category. "
                                  f"Use one of: {', '.join(CATEGORIES)}")
         self.overrides = dict(overrides or {})
-        self.verified, self.by_name = _tables(load_profiles() if rows is None else rows)
+        self.by_key, self.by_name = _tables(load_profiles() if rows is None else rows)
         self._warned = set()
 
-    def match(self, type_key):
-        """(category, how) where how is 'override', 'verified', 'name' or None when the type is unknown."""
-        for how, table in (("override", self.overrides), ("verified", self.verified), ("name", self.by_name)):
+    def match(self, type_key, parent_id=None):
+        """(category, how); how is 'override', 'key', 'name', 'parent', or None when the type is unknown."""
+        for how, table in (("override", self.overrides), ("key", self.by_key), ("name", self.by_name)):
             if type_key in table:
                 return table[type_key], how
+        if parent_id in PARENT_CATEGORY:
+            return PARENT_CATEGORY[parent_id], "parent"
         return "other", None
 
-    def category(self, type_key):
-        cat, how = self.match(type_key)
+    def category(self, type_key, parent_id=None):
+        cat, how = self.match(type_key, parent_id)
         if how is None and type_key not in self._warned:
             self._warned.add(type_key)
             log.warning("Unknown activity type %r counted as 'other'. Add it under [sports] in config.toml.",

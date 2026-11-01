@@ -3,6 +3,7 @@ import json
 import sys
 import tempfile
 import unittest
+from datetime import timedelta, timezone
 from pathlib import Path
 
 import requests
@@ -11,7 +12,7 @@ from garmin_personal_api.errors import HttpError
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from garmin_context import fetch, metrics  # noqa: E402
+from garmin_context import fetch, metrics, summary  # noqa: E402
 from garmin_context.sports import CATEGORIES, Sports, load_profiles  # noqa: E402
 
 
@@ -43,20 +44,60 @@ class SportsTest(unittest.TestCase):
         self.assertTrue(all(r["category"] in CATEGORIES for r in rows))
         keys = [r["type_key"] for r in rows if r["type_key"]]
         self.assertEqual(len(keys), len(set(keys)), "a type_key is listed twice")
-        names = [r["profile"] for r in rows]
+        names = [r["profile"] for r in rows if r["profile"]]
         self.assertEqual(len(names), len(set(names)), "a profile is listed twice")
         self.assertTrue(all(r["key_source"] for r in rows if r["type_key"]), "every type_key needs a key_source")
+        self.assertTrue(all(r["profile"] or r["type_key"] for r in rows), "a row needs a profile or a type_key")
 
-    def test_verified_key_beats_name_match_and_name_match_works(self):
+    def test_known_key_beats_name_match_and_name_match_works(self):
         s = Sports()
-        self.assertEqual(s.match("trail_running"), ("running", "verified"))
-        self.assertEqual(s.match("badminton"), ("racket_sports", "name"))
-        self.assertEqual(s.match("ice_hockey"), ("team_sports", "name"))
-        self.assertEqual(s.match("yoga"), ("mind_body", "verified"))
+        self.assertEqual(s.match("trail_running"), ("running", "key"))
+        self.assertEqual(s.match("badminton"), ("racket_sports", "key"))
+        self.assertEqual(s.match("yoga"), ("mind_body", "key"))
         self.assertEqual(s.match("kite_surfing"), ("other", None))
+        # a profile without a known key still matches when its snake_case name is the key
+        self.assertEqual(s.match("tempo_training"), ("other", "name"))
+
+    def test_parent_group_is_the_fallback_for_unseen_types(self):
+        s = Sports()
+        self.assertEqual(s.match("brand_new_ski_type", 165), ("winter_sports", "parent"))
+        self.assertEqual(s.match("brand_new_type", 12345), ("other", None))
+        self.assertEqual(s.match("trail_running", 165)[1], "key")
 
     def test_override_beats_database(self):
         self.assertEqual(Sports({"badminton": "cardio_gym"}).match("badminton"), ("cardio_gym", "override"))
+
+
+class TimezoneTest(unittest.TestCase):
+    def write(self, folder, sleep=(), acts=()):
+        (folder / "sleep.json").write_text(json.dumps(list(sleep)))
+        (folder / "activities.json").write_text(json.dumps(list(acts)))
+
+    def test_offset_follows_the_newest_record(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            # Paris (+1h) sleep on 28 Oct, then a London (+0h) activity on 30 Oct
+            self.write(d, sleep=[{"sleepEndTimestampGMT": 1793170000000, "sleepEndTimestampLocal": 1793173600000}],
+                       acts=[{"startTimeGMT": "2026-10-30 08:00:00", "startTimeLocal": "2026-10-30 08:00:00"}])
+            self.assertEqual(summary.detect_offset(d), 0)
+
+    def test_sleep_wins_when_it_is_newer(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp)
+            self.write(d, sleep=[{"sleepEndTimestampGMT": 1793400000000, "sleepEndTimestampLocal": 1793403600000}],
+                       acts=[{"startTimeGMT": "2026-10-28 08:00:00", "startTimeLocal": "2026-10-28 08:00:00"}])
+            self.assertEqual(summary.detect_offset(d), 3600)
+
+    def test_no_records_gives_none_and_utc(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            self.write(Path(tmp))
+            self.assertIsNone(summary.detect_offset(Path(tmp)))
+            with self.assertLogs("garmin_context.summary", "WARNING"):
+                self.assertEqual(summary.resolve_tz(Path(tmp)), timezone.utc)
+
+    def test_label(self):
+        self.assertEqual(summary.tz_label(timezone(timedelta(hours=1))), "UTC+01:00")
+        self.assertEqual(summary.tz_label(timezone.utc), "UTC")
 
 
 class RetryTest(unittest.TestCase):

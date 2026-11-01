@@ -67,9 +67,9 @@ Optional `config.toml` in the folder you run from. Without it the defaults apply
 
 | Option | Default | Description |
 |---|---|---|
-| `timezone` | `UTC` | IANA name, for example `Europe/Paris`. Sets "today" and the Monday-to-Sunday weeks. |
+| `timezone` | `auto` | `auto` reads the UTC offset from your newest sleep or activity record, so "today" and the Monday-to-Sunday weeks follow where you are. Or pin an IANA name such as `Europe/Paris`. |
 | `gym_target` | `3` | Strength sessions per week, shown against the actual count. |
-| `[sports]` | profile database | Garmin activity type to category overrides on top of the built-in database of Garmin's 133 activity profiles. Unknown types count as `other` with one warning. See [docs/sports.md](docs/sports.md). |
+| `[sports]` | profile database | Garmin activity type to category overrides on top of the built-in database of 180 Garmin activity profiles and type keys. Unknown types count as `other` with one warning. See [docs/sports.md](docs/sports.md). |
 
 The key comes from `GARMIN_PERSONAL_API_KEY`, as an environment variable or in `.env.local`.
 
@@ -79,7 +79,7 @@ Load is Garmin's own per-activity training load, summed per week. The summary co
 
 ## Scheduled run and dashboard (optional)
 
-The core above runs anywhere. The way I use it is a scheduled claude.ai cloud routine that runs `fetch` and `build` twice a day and uploads `dash/*.json` to a Dashboard artifact, which a second assistant routine reads. That part relies on claude.ai routines and Dashboard artifacts, which are research-preview features, and it needs the key stored as a variable in the routine's cloud environment. The prompt template is [`examples/garmin_sync_prompt.template.md`](examples/garmin_sync_prompt.template.md) and the dashboard page is [`examples/dashboard_page.html`](examples/dashboard_page.html).
+The core above runs anywhere. The way I use it is a scheduled claude.ai cloud routine that runs `fetch` and `build` twice a day and uploads `dash/*.json` to a Dashboard artifact, which a second assistant routine reads. That part relies on claude.ai routines and Dashboard artifacts, which are research-preview features, and it needs the key stored as a variable in the routine's cloud environment. The routine's own schedule has a fixed time zone; only the data's "today" follows you. The prompt template is [`examples/garmin_sync_prompt.template.md`](examples/garmin_sync_prompt.template.md) and the dashboard page is [`examples/dashboard_page.html`](examples/dashboard_page.html).
 
 ## Troubleshooting
 
@@ -91,7 +91,8 @@ The core above runs anywhere. The way I use it is a scheduled claude.ai cloud ro
 | `Garmin API still failing after 4 attempts` | Network errors and HTTP 429, 500, 502, 503, 504 are retried with 2, 4 and 8 second waits. Try again later. |
 | `Warning: no activities in the last 90 days` | Sync your watch to Garmin Connect, then rerun. |
 | `Unknown activity type ... counted as 'other'` | Run `python -m garmin_context types` to see how each type is mapped, then add the type under `[sports]` in `config.toml` or to the CSV (see [docs/sports.md](docs/sports.md)). |
-| `config.toml: timezone ... is not an IANA time zone name` | Use a name like `Europe/Paris`. |
+| `config.toml: timezone ... is not 'auto' or an IANA time zone name` | Use `auto` or a name like `Europe/Paris`. |
+| `Could not read a UTC offset from the data, using UTC` | There was no sleep or activity record yet. Set `timezone` in `config.toml`. |
 
 ## FAQ
 
@@ -105,7 +106,7 @@ The core above runs anywhere. The way I use it is a scheduled claude.ai cloud ro
 
 - The Garmin client is pinned to 1.0.0, the only release on PyPI when I checked.
 - Retry covers network errors and temporary server errors. Garmin's rate limits are not documented here and Retry-After is not read, because the client does not expose response headers.
-- Most profiles in the sports database have no verified API type key yet; they match by name only. Contributions of verified keys are welcome (see [docs/sports.md](docs/sports.md)).
+- The sports database's type keys come from a community list (GarminDB) and my own data, not from Garmin documentation. Corrections are welcome (see [docs/sports.md](docs/sports.md)).
 - Distance is shown for running and hiking and walking only.
 - The scheduled part depends on research-preview claude.ai features.
 

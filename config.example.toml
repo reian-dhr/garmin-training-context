@@ -1,7 +1,8 @@
-# Copy to config.toml to override. Without it, the defaults apply (UTC, 3 sessions, built-in sport mapping).
+# Copy to config.toml to override. Without it, the defaults apply (auto time zone, 3 sessions, built-in sport mapping).
 
-# IANA time zone: sets "today" and the Monday-to-Sunday week boundaries.
-timezone = "UTC"
+# "auto" reads your UTC offset from the newest sleep or activity record, so "today" and the Monday-to-Sunday
+# weeks follow where you are. Or pin an IANA name, for example "Europe/Paris".
+timezone = "auto"
 
 # Strength sessions per week you aim for. Shown against the actual count.
 gym_target = 3

@@ -1,134 +1,181 @@
-profile,garmin_group,category,type_key,key_source
-Adventure Race,Outdoor,other,,
-American Football,Team Sports,team_sports,,
-Apnea Dive,Diving,diving,,
-Apnea Hunt,Diving,diving,,
-Archery,Other/Outdoor,other,,
-ArcheryX,Outdoor,other,,
-ATV,Motorsports,motorsports,,
-Backcountry Ski,Winter Sports,winter_sports,,
-Backcountry Snowboard,Winter Sports,winter_sports,,
-Badminton,Racket Sports,racket_sports,,
-Baseball,Team Sports,team_sports,,
-Basic Swimming,,swimming,,
-Basketball,Team Sports,team_sports,,
-Bike,Cycling,cycling,cycling,author-data
-Bike Commute,Cycling,cycling,,
-Bike Indoor,Cycling/Gym,cycling,indoor_cycling,author-data
-Bike Tour,Cycling,cycling,,
-BMX,Cycling,cycling,,
-Boat,,water_sports,,
-Bouldering,Outdoor/Gym,climbing,,
-Boxing,Other/Gym,other,,
-Breathwork,Other,mind_body,,
-Cardio,Gym,cardio_gym,,
-CCR,Diving,diving,,
-Climb,Outdoor,climbing,,
-Climb Indoor,Gym,climbing,,
-Cricket,Team Sports,team_sports,,
-Cyclocross,Cycling,cycling,,
-Dance Fitness,,cardio_gym,,
-Disc Golf,Outdoor,other,,
-Driving Range,,golf,,
-eBike,Cycling,cycling,,
-Elliptical,Gym,cardio_gym,,
-eMTB,Cycling,cycling,,
-Expedition,Outdoor,other,,
-Field Hockey,Team Sports,team_sports,,
-Fish,Outdoor,other,,
-Floor Climb,Gym,cardio_gym,,
-Flying,,other,,
-Gaming,Other/Team Sports,other,,
-Gauge,Diving,diving,,
-Golf,Outdoor/Other,golf,,
-Gravel Bike,Cycling,cycling,,
-Gymnastics,,other,,
-Handcycle,,cycling,,
-Handcycle Indoor,,cycling,,
-HIIT,Gym,cardio_gym,,
-Hike,Outdoor,hiking_walking,hiking,author-data
-Horseback,Outdoor,other,,
-Hunt,Outdoor,other,,
-Ice Hockey,Team Sports,team_sports,,
-Ice Skating,Winter Sports,winter_sports,,
-Indoor Track,Running/Gym,running,,
-Inline Skating,Outdoor,other,,
-Jump Rope,Gym,cardio_gym,,
-Jumpmaster,,other,,
-Kayak,Water Sports,water_sports,,
-Kiteboard,Water Sports,water_sports,,
-Lacrosse,Team Sports,team_sports,,
-Meditation,,mind_body,,
-Mixed Martial Arts,Other/Gym,other,,
-Mixed Session,Multisport,other,,
-Mobility,Gym,mind_body,,
-Motocross,Motorsports,motorsports,,
-Motorcycle,Motorsports,motorsports,,
-Mountaineering,Outdoor,climbing,,
-MTB,Cycling,cycling,,
-Multi-Gas,Diving,diving,,
-Obstacle Racing,Running,running,,
-Open Water,Swimming,swimming,open_water_swimming,author-data
-Other,Other,other,,
-Overland,Motorsports,motorsports,,
-Padel,Racket Sports,racket_sports,paddelball,author-data
-Pickelball,Racket Sports,racket_sports,,
-Pilates,Gym,mind_body,pilates,author-data
-Platform Tennis,Racket Sports,racket_sports,,
-Pool Apnea,Diving,diving,,
-Pool Swim,Swimming,swimming,lap_swimming,author-data
-Racquetball,Racket Sports,racket_sports,,
-Road Bike,Cycling,cycling,,
-Row,Water Sports,water_sports,,
-Row Indoor,Gym,cardio_gym,,
-Rucking,Outdoor,hiking_walking,,
-Rugby,Team Sports,team_sports,,
-Run,,running,running,author-data
-Run Indoor,Running,running,,
-Sail,Water Sports,water_sports,,
-Sail Expedition,Water Sports,water_sports,,
-Sail Race,Water Sports,water_sports,,
-Scuba Dive,Diving,diving,,
-Single-Gas,Diving,diving,,
-Ski,Winter Sports,winter_sports,resort_skiing,author-data
-Snorkel,Water Sports/Diving,water_sports,,
-Snowboard,Winter Sports,winter_sports,,
-Snowmobile,Motorsports,motorsports,,
-Snowshoe,Winter Sports,winter_sports,,
-Soccer/Football,Team Sports,team_sports,soccer,author-data
-Softball,Team Sports,team_sports,,
-Squash,Racket Sports,racket_sports,,
-Stair Stepper,Gym,cardio_gym,,
-Strength,Gym,strength,strength_training,author-data
-SUP (Stand Up Paddle Boarding),,water_sports,,
-Surf,Water Sports,water_sports,,
-Swing Tempo,,golf,,
-Table Tennis,Racket Sports,racket_sports,,
-Tactical,,other,,
-Tempo Training,,other,,
-Tennis,Racket Sports,racket_sports,,
-Track Me,Other,other,,
-Track Run,Running,running,,
-Trail Run,Running,running,trail_running,author-data
-Train,,other,,
-Treadmill,Running/Gym,running,treadmill_running,author-data
-Treadmill Walk,,hiking_walking,,
-Triathlon/Multisport,Multisport/Running/Cycling/Swimming,other,,
-TruSwing,,golf,,
-Tube,Water Sports,water_sports,,
-Ultimate Disc,Team Sports,team_sports,,
-Ultra Run,Running,running,,
-Virtual Run,Running,running,,
-Volleyball,Team Sports,team_sports,,
-Wakeboard,Water Sports,water_sports,,
-Wakesurf,Water Sports,water_sports,,
-Walk,Running/Other/Gym,hiking_walking,walking,author-data
-Walk Indoor,Other/Gym,hiking_walking,,
-Water Ski,Water Sports,water_sports,,
-Whitewater,Water Sports,water_sports,,
-Windsurf,Water Sports,water_sports,,
-XC Classic Ski,Winter Sports,winter_sports,,
-XC Skate Ski,Winter Sports,winter_sports,,
-XC Ski,Winter Sports,winter_sports,,
-XC Ski Indoor,Gym,winter_sports,,
-Yoga,Gym/Other,mind_body,yoga,author-data
+profile,garmin_group,category,type_key,type_id,key_source
+Adventure Race,Outdoor,other,,,
+American Football,Team Sports,team_sports,american_football,216,garmindb-enum
+Apnea Dive,Diving,diving,,,
+Apnea Hunt,Diving,diving,,,
+Archery,Other/Outdoor,other,archery,247,garmindb-enum
+ArcheryX,Outdoor,other,,,
+ATV,Motorsports,motorsports,atv_v2,187,garmindb-enum
+Backcountry Ski,Winter Sports,winter_sports,backcountry_skiing,203,garmindb-enum
+Backcountry Snowboard,Winter Sports,winter_sports,backcountry_snowboarding,204,garmindb-enum
+Badminton,Racket Sports,racket_sports,badminton,224,garmindb-enum
+Baseball,Team Sports,team_sports,baseball,218,garmindb-enum
+Basic Swimming,,swimming,,,
+Basketball,Team Sports,team_sports,basketball,217,garmindb-enum
+Bike,Cycling,cycling,cycling,2,author-data
+Bike Commute,Cycling,cycling,,,
+Bike Indoor,Cycling/Gym,cycling,indoor_cycling,25,author-data
+Bike Tour,Cycling,cycling,,,
+BMX,Cycling,cycling,bmx,131,garmindb-enum
+Boat,,water_sports,boating,75,garmindb-enum
+Bouldering,Outdoor/Gym,climbing,bouldering,174,garmindb-enum
+Boxing,Other/Gym,other,boxing,246,garmindb-enum
+Breathwork,Other,mind_body,breathwork,164,garmindb-enum
+Cardio,Gym,cardio_gym,indoor_cardio,11,garmindb-enum
+CCR,Diving,diving,ccr_diving,161,garmindb-enum
+Climb,Outdoor,climbing,rock_climbing,139,garmindb-enum
+Climb Indoor,Gym,climbing,indoor_climbing,173,garmindb-enum
+Cricket,Team Sports,team_sports,cricket,207,garmindb-enum
+Cyclocross,Cycling,cycling,cyclocross,19,garmindb-enum
+Dance Fitness,,cardio_gym,dance,253,garmindb-enum
+Disc Golf,Outdoor,other,disc_golf,205,garmindb-enum
+Driving Range,,golf,,,
+eBike,Cycling,cycling,e_bike_fitness,176,garmindb-enum
+Elliptical,Gym,cardio_gym,elliptical,30,garmindb-enum
+eMTB,Cycling,cycling,e_bike_mountain,175,garmindb-enum
+Expedition,Outdoor,other,,,
+Field Hockey,Team Sports,team_sports,field_hockey,210,garmindb-enum
+Fish,Outdoor,other,fishing,194,garmindb-enum
+Floor Climb,Gym,cardio_gym,floor_climbing,150,garmindb-enum
+Flying,,other,flying,52,garmindb-enum
+Gaming,Other/Team Sports,other,e_sport,182,garmindb-enum
+Gauge,Diving,diving,,,
+Golf,Outdoor/Other,golf,golf,88,garmindb-enum
+Gravel Bike,Cycling,cycling,gravel_cycling,143,garmindb-enum
+Gymnastics,,other,,,
+Handcycle,,cycling,hand_cycling,197,garmindb-enum
+Handcycle Indoor,,cycling,indoor_hand_cycling,198,garmindb-enum
+HIIT,Gym,cardio_gym,hiit,180,garmindb-enum
+Hike,Outdoor,hiking_walking,hiking,3,author-data
+Horseback,Outdoor,other,horseback_riding,44,garmindb-enum
+Hunt,Outdoor,other,hunting,193,garmindb-enum
+Ice Hockey,Team Sports,team_sports,ice_hockey,209,garmindb-enum
+Ice Skating,Winter Sports,winter_sports,skating,62,garmindb-enum
+Indoor Track,Running/Gym,running,,,
+Inline Skating,Outdoor,other,inline_skating,63,garmindb-enum
+Jump Rope,Gym,cardio_gym,jump_rope,254,garmindb-enum
+Jumpmaster,,other,,,
+Kayak,Water Sports,water_sports,kayaking,196,garmindb-enum
+Kiteboard,Water Sports,water_sports,kiteboarding,184,garmindb-enum
+Lacrosse,Team Sports,team_sports,lacrosse,211,garmindb-enum
+Meditation,,mind_body,meditation,202,garmindb-enum
+Mixed Martial Arts,Other/Gym,other,mixed_martial_arts,248,garmindb-enum
+Mixed Session,Multisport,other,,,
+Mobility,Gym,mind_body,,,
+Motocross,Motorsports,motorsports,motocross_v2,186,garmindb-enum
+Motorcycle,Motorsports,motorsports,motorcycling_v2,185,garmindb-enum
+Mountaineering,Outdoor,climbing,mountaineering,37,garmindb-enum
+MTB,Cycling,cycling,mountain_biking,5,garmindb-enum
+Multi-Gas,Diving,diving,,,
+Obstacle Racing,Running,running,obstacle_run,154,garmindb-enum
+Open Water,Swimming,swimming,open_water_swimming,28,author-data
+Other,Other,other,,,
+Overland,Motorsports,motorsports,overland,249,garmindb-enum
+Padel,Racket Sports,racket_sports,paddelball,226,author-data
+Pickelball,Racket Sports,racket_sports,pickleball,225,garmindb-enum
+Pilates,Gym,mind_body,pilates,160,author-data
+Platform Tennis,Racket Sports,racket_sports,platform_tennis,221,garmindb-enum
+Pool Apnea,Diving,diving,,,
+Pool Swim,Swimming,swimming,lap_swimming,27,author-data
+Racquetball,Racket Sports,racket_sports,racquetball,222,garmindb-enum
+Road Bike,Cycling,cycling,road_biking,10,garmindb-enum
+Row,Water Sports,water_sports,rowing,39,garmindb-enum
+Row Indoor,Gym,cardio_gym,indoor_rowing,32,garmindb-enum
+Rucking,Outdoor,hiking_walking,,,
+Rugby,Team Sports,team_sports,rugby,208,garmindb-enum
+Run,,running,running,1,author-data
+Run Indoor,Running,running,indoor_running,156,garmindb-enum
+Sail,Water Sports,water_sports,sailing,77,garmindb-enum
+Sail Expedition,Water Sports,water_sports,,,
+Sail Race,Water Sports,water_sports,,,
+Scuba Dive,Diving,diving,diving,144,garmindb-enum
+Single-Gas,Diving,diving,,,
+Ski,Winter Sports,winter_sports,resort_skiing,251,author-data
+Snorkel,Water Sports/Diving,water_sports,snorkeling,250,garmindb-enum
+Snowboard,Winter Sports,winter_sports,resort_snowboarding,252,garmindb-enum
+Snowmobile,Motorsports,motorsports,,,
+Snowshoe,Winter Sports,winter_sports,snow_shoe,36,garmindb-enum
+Soccer/Football,Team Sports,team_sports,soccer,215,author-data
+Softball,Team Sports,team_sports,softball,214,garmindb-enum
+Squash,Racket Sports,racket_sports,squash,223,garmindb-enum
+Stair Stepper,Gym,cardio_gym,stair_climbing,31,garmindb-enum
+Strength,Gym,strength,strength_training,13,author-data
+SUP (Stand Up Paddle Boarding),,water_sports,stand_up_paddleboarding,87,garmindb-enum
+Surf,Water Sports,water_sports,surfing,137,garmindb-enum
+Swing Tempo,,golf,,,
+Table Tennis,Racket Sports,racket_sports,table_tennis,220,garmindb-enum
+Tactical,,other,,,
+Tempo Training,,other,,,
+Tennis,Racket Sports,racket_sports,tennis,142,garmindb-enum
+Track Me,Other,other,,,
+Track Run,Running,running,track_running,8,garmindb-enum
+Trail Run,Running,running,trail_running,6,author-data
+Train,,other,,,
+Treadmill,Running/Gym,running,treadmill_running,18,author-data
+Treadmill Walk,,hiking_walking,,,
+Triathlon/Multisport,Multisport/Running/Cycling/Swimming,other,,,
+TruSwing,,golf,,,
+Tube,Water Sports,water_sports,water_tubing,241,garmindb-enum
+Ultimate Disc,Team Sports,team_sports,ultimate_disc,213,garmindb-enum
+Ultra Run,Running,running,ultra_run,181,garmindb-enum
+Virtual Run,Running,running,virtual_run,153,garmindb-enum
+Volleyball,Team Sports,team_sports,volleyball,212,garmindb-enum
+Wakeboard,Water Sports,water_sports,wakeboarding,138,garmindb-enum
+Wakesurf,Water Sports,water_sports,wakesurfing,244,garmindb-enum
+Walk,Running/Other/Gym,hiking_walking,walking,9,author-data
+Walk Indoor,Other/Gym,hiking_walking,,,
+Water Ski,Water Sports,water_sports,waterskiing,245,garmindb-enum
+Whitewater,Water Sports,water_sports,whitewater_rafting,195,garmindb-enum
+Windsurf,Water Sports,water_sports,windsurfing,183,garmindb-enum
+XC Classic Ski,Winter Sports,winter_sports,,,
+XC Skate Ski,Winter Sports,winter_sports,skate_skiing_ws,170,garmindb-enum
+XC Ski,Winter Sports,winter_sports,cross_country_skiing,81,garmindb-enum
+XC Ski Indoor,Gym,winter_sports,,,
+Yoga,Gym/Other,mind_body,yoga,163,author-data
+,,other,other,4,garmindb-enum
+,,running,street_running,7,garmindb-enum
+,,hiking_walking,casual_walking,15,garmindb-enum
+,,hiking_walking,speed_walking,16,garmindb-enum
+,,cycling,downhill_biking,20,garmindb-enum
+,,cycling,track_cycling,21,garmindb-enum
+,,cycling,recumbent_cycling,22,garmindb-enum
+,,swimming,swimming,26,garmindb-enum
+,,cardio_gym,fitness_equipment,29,garmindb-enum
+,,water_sports,wind_kite_surfing,41,garmindb-enum
+,,motorsports,driving_general,49,garmindb-enum
+,,water_sports,paddling,57,garmindb-enum
+,,water_sports,whitewater_rafting_kayaking,60,garmindb-enum
+,,winter_sports,resort_skiing_snowboarding,67,garmindb-enum
+,,winter_sports,backcountry_skiing_snowboarding,68,garmindb-enum
+,,other,hunting_fishing,133,garmindb-enum
+,,other,hang_gliding,140,garmindb-enum
+,,cycling,virtual_ride,152,garmindb-enum
+,,motorsports,auto_racing,162,garmindb-enum
+,,winter_sports,winter_sports,165,garmindb-enum
+,,winter_sports,snow_shoe_ws,167,garmindb-enum
+,,winter_sports,skating_ws,168,garmindb-enum
+,,winter_sports,backcountry_skiing_snowboarding_ws,169,garmindb-enum
+,,winter_sports,cross_country_skiing_ws,171,garmindb-enum
+,,winter_sports,resort_skiing_snowboarding_ws,172,garmindb-enum
+,,water_sports,onshore_grinding,178,garmindb-enum
+,,water_sports,offshore_grinding,179,garmindb-enum
+,,other,para_sports,199,garmindb-enum
+,,running,wheelchair_push_run,200,garmindb-enum
+,,hiking_walking,wheelchair_push_walk,201,garmindb-enum
+,,team_sports,team_sports,206,garmindb-enum
+,,racket_sports,racket_sports,219,garmindb-enum
+,,racket_sports,tennis_v2,227,garmindb-enum
+,,water_sports,water_sports,228,garmindb-enum
+,,water_sports,boating_v2,229,garmindb-enum
+,,other,fishing_v2,230,garmindb-enum
+,,water_sports,kayaking_v2,231,garmindb-enum
+,,water_sports,kiteboarding_v2,232,garmindb-enum
+,,water_sports,offshore_grinding_v2,233,garmindb-enum
+,,water_sports,onshore_grinding_v2,234,garmindb-enum
+,,water_sports,paddling_v2,235,garmindb-enum
+,,water_sports,whitewater_rafting_v2,236,garmindb-enum
+,,water_sports,rowing_v2,237,garmindb-enum
+,,water_sports,stand_up_paddleboarding_v2,239,garmindb-enum
+,,water_sports,surfing_v2,240,garmindb-enum
+,,water_sports,windsurfing_v2,242,garmindb-enum
+,,water_sports,wakeboarding_v2,243,garmindb-enum

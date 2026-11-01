@@ -6,7 +6,7 @@ import json
 import logging
 import os
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import requests
 from garmin_personal_api import GarminPersonalApiClient, PersonalApiAuthenticator
@@ -79,7 +79,8 @@ def collect(fn, start, end, size):
 
 
 def main():
-    end = datetime.now(TZ).date()
+    # With timezone = "auto" the local date is not known yet, so ask up to tomorrow in UTC (Garmin accepts it).
+    end = datetime.now(TZ).date() if TZ else datetime.now(timezone.utc).date() + timedelta(days=1)
     start = end - timedelta(days=DAYS - 1)
     DATA.mkdir(exist_ok=True)
 
